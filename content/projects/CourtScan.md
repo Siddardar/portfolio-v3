@@ -10,4 +10,4 @@ company: ''
 showInProjects: true
 ---
 
-A lightweight Python script to check for the availablity of badminton courts
+A lightweight Python script to check for the availablity of badminton courts based on location
