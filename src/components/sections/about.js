@@ -169,7 +169,7 @@ const About = () => {
               src="../../images/me.jpeg"
               width={500}
               quality={100}
-              formats={['AUTO', 'WEBP', 'AVIF']}
+              formats={['AUTO', 'WEBP']}
               alt="Sidd"
             />
           </div>
