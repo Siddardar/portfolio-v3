@@ -2,7 +2,7 @@
 date: '2023-03-19'
 title: 'Portfolio v1'
 github: 'https://github.com/Siddardar/gatsby-portfolio'
-external: 'https://github.com/Siddardar/gatsby-portfolio'
+external: 'https://gongyiyoomeeandsidd.netlify.app/'
 tech:
   - Gatsby.js
   - React.js

@@ -65,7 +65,7 @@ const Hero = () => {
   const four = (
     <>
       <p>
-        I’m a second year Computer Science and Math student at NUS. I am passionate about software
+        I’m a second year Computer Science and Math student at NUS and my passions lie in software
         development and building products that make a difference.
       </p>
     </>
