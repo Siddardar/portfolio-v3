@@ -68,7 +68,7 @@ const Layout = ({ children, location }) => {
 
               <div id="content">
                 {children}
-                <Footer />
+                {isHome ? <Footer /> : null}
               </div>
             </StyledContent>
           )}

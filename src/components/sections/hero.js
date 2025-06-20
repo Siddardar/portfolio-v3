@@ -44,6 +44,11 @@ const StyledHeroSection = styled.section`
     ${({ theme }) => theme.mixins.bigButton};
     margin-top: 50px;
   }
+
+  .returns-link {
+    ${({ theme }) => theme.mixins.otherButton};
+    margin-top: 50px;
+  }
 `;
 
 const Hero = () => {
@@ -70,13 +75,19 @@ const Hero = () => {
       </p>
     </>
   );
-  const five = (
-    <a className="email-link" href="#projects">
-      Check out my Projects!
-    </a>
+
+  const fiveAndSix = (
+    <div style={{ display: 'flex', gap: '20px', marginTop: '50px' }}>
+      <a className="email-link" href="#projects">
+        Check out my Projects!
+      </a>
+      <a className="returns-link" href="/returns-calculator">
+        Returns Calculator
+      </a>
+    </div>
   );
 
-  const items = [one, two, three, four, five];
+  const items = [one, two, three, four, fiveAndSix];
 
   return (
     <StyledHeroSection>

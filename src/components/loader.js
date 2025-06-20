@@ -42,8 +42,8 @@ const Loader = ({ finishLoading }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // For demonstration, auto-finish after 3s
-    const timeout = setTimeout(() => finishLoading(), 3000);
+    // For demonstration, auto-finish after 1s
+    const timeout = setTimeout(() => finishLoading());
     setIsMounted(true);
     return () => clearTimeout(timeout);
   }, [finishLoading]);

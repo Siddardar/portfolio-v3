@@ -1,9 +1,9 @@
 ---
-date: '2023-08-01'
-title: 'Teaching Assistant'
-company: 'NUS'
+date: '2025-05-13'
+title: 'Solutions Engineer (Intern)'
+company: 'InterSystems'
 location: 'Singapore'
-range: 'August 2023 - Present'
+range: 'May 2025 - August 2025'
 url: ''
 ---
 
