@@ -200,8 +200,8 @@ const ReturnCalc = ({ location }) => {
         <FundsInputTable 
           faData={faData} 
           setFaData={setFaData} 
-          benchmarkData={benchmarkData} 
-          setbenchmarkData={setBenchmarkData} 
+          yourFundData={benchmarkData} 
+          setYourFundData={setBenchmarkData} 
           buttonSubmit={handleSubmit}
         />
 
