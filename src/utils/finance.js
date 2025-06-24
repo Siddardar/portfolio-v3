@@ -97,3 +97,7 @@ export const calculateReturns = (start, monthlyPremium, rateOfReturn, feeRate, y
 
   return results;
 };
+
+export const validateInputs = (monthlyPremium, startDate, faFund, benchmarkFund) => {
+
+}

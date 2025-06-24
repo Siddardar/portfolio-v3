@@ -43,7 +43,7 @@ const ReturnCalc = ({ location }) => {
     { id: 7, name: 'Advisory Fee', allocation: '100', fees: '1', annualReturn: '0' },
   ]);
 
-  const [yourFundData, setYourFundData] = useState([
+  const [benchmarkData, setBenchmarkData] = useState([
     { id: 1, name: 'Vanguard S&P 500 ETF', allocation: '100', fees: '0.03', annualReturn: '12.81' },
   ]);
 
@@ -53,11 +53,12 @@ const ReturnCalc = ({ location }) => {
 
 
   const handleSubmit = () => {
+    
     const averageReturnsFA = faData.reduce((acc, fund) => acc + fund.annualReturn*fund.allocation/100, 0)/100
     const averageFeesFA = faData.reduce((acc, fund) => acc + fund.fees*fund.allocation/100, 0)/100
     
-    const averageFeesBenchmark = yourFundData.reduce((acc, fund) => acc + fund.fees*fund.allocation/100, 0)/100
-    const averageReturnsBenchmark = yourFundData.reduce((acc, fund) => acc + fund.annualReturn*fund.allocation/100, 0)/100
+    const averageFeesBenchmark = benchmarkData.reduce((acc, fund) => acc + fund.fees*fund.allocation/100, 0)/100
+    const averageReturnsBenchmark = benchmarkData.reduce((acc, fund) => acc + fund.annualReturn*fund.allocation/100, 0)/100
 
     const chartDataFA = calculateReturns(new Date(startDate), monthlyPremium, averageReturnsFA, averageFeesFA, 30);
     const chartDataBenchmark = calculateReturns(new Date(startDate), monthlyPremium, averageReturnsBenchmark, averageFeesBenchmark, 30);
@@ -67,7 +68,7 @@ const ReturnCalc = ({ location }) => {
 
     setAverageFeesFA(averageFeesFA);
     setAverageFeesBenchmark(averageFeesBenchmark);
-
+    
   };
 
 
@@ -81,7 +82,7 @@ const ReturnCalc = ({ location }) => {
       <CardsContainer>
         <InfoCard 
         title="Total Fees (% p.a.)" 
-        value={(averageFeesFA*100).toFixed(2)} 
+        value={((averageFeesFA - averageFeesBenchmark)*100).toFixed(2)} 
         trend={(averageFeesFA - averageFeesBenchmark) >= 0 ? 'up' : 'down'} 
         mainValue={(averageFeesFA*100).toFixed(2)} 
         sub1={`Fees are ${((averageFeesFA - averageFeesBenchmark) * 100).toFixed(2)}% ${((averageFeesFA - averageFeesBenchmark) >= 0 ? 'higher' : 'lower')} than the benchmark`}
@@ -128,8 +129,8 @@ const ReturnCalc = ({ location }) => {
       <FundsInputTable 
         faData={faData} 
         setFaData={setFaData} 
-        yourFundData={yourFundData} 
-        setYourFundData={setYourFundData} 
+        benchmarkData={benchmarkData} 
+        setbenchmarkData={setBenchmarkData} 
         buttonSubmit={handleSubmit}
       />
 

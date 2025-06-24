@@ -34,7 +34,6 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
 
   const styles = {
     container: {
-      
       width: '100%',
       marginTop: '24px'
     },
@@ -78,7 +77,9 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
       transition: 'all 0.2s',
       border: 'none',
       backgroundColor: '#2563eb',
-      color: 'white'
+      color: 'white',
+      marginBottom: '24px',
+      width: '100%'
     },
     tableContainer: {
       backgroundColor: '#1f2937',
@@ -121,17 +122,21 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
     },
     thIndex: {
       left: 0,
-      width: '48px'
+      width: '64px', // Increased to eliminate gap
+      minWidth: '64px'
     },
     thName: {
-      left: '48px',
-      minWidth: '192px'
+      left: '64px', // Match the increased index column width
+      width: '140px',
+      minWidth: '140px'
     },
     thRegular: {
-      minWidth: '128px'
+      minWidth: '100px', // Reduced from 128px for mobile
+      width: '100px'
     },
     thDelete: {
-      width: '64px'
+      width: '64px',
+      minWidth: '64px'
     },
     tbody: {
       backgroundColor: '#1f2937'
@@ -157,10 +162,14 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
     },
     tdIndex: {
       left: 0,
-      color: '#9ca3af'
+      color: '#9ca3af',
+      width: '64px', // Increased to match header
+      minWidth: '64px'
     },
     tdName: {
-      left: '48px'
+      left: '64px', // Match the increased width
+      width: '140px',
+      minWidth: '140px'
     },
     input: {
       width: '100%',
@@ -169,7 +178,8 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
       fontSize: '14px',
       color: 'white',
       outline: 'none',
-      padding: '4px 8px'
+      padding: '4px 8px',
+      boxSizing: 'border-box' // Ensure padding doesn't cause overflow
     },
     inputFocus: {
       backgroundColor: '#374151'
@@ -205,13 +215,41 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
     },
     addButtonHover: {
       backgroundColor: '#047857'
+    },
+    // Mobile responsive styles
+    '@media (max-width: 768px)': {
+      thIndex: {
+        width: '56px', // Increased for mobile
+        minWidth: '56px'
+      },
+      thName: {
+        left: '56px', // Match mobile index width
+        width: '120px',
+        minWidth: '120px'
+      },
+      tdIndex: {
+        width: '56px',
+        minWidth: '56px'
+      },
+      tdName: {
+        left: '56px',
+        width: '120px',
+        minWidth: '120px'
+      },
+      thRegular: {
+        minWidth: '80px',
+        width: '80px'
+      }
     }
   };
 
   return (
     <div style={styles.container}>
+      <button style={styles.submitButton} onClick={buttonSubmit}>
+        <span>Submit</span>
+      </button>
       <div style={styles.wrapper}>
-        {/* Tab Switcher with Submit Button */}
+        {/* Tab Switcher */}
         <div style={styles.tabContainer}>
           <div style={styles.tabWrapper}>
             {tabs.map((tab) => (
@@ -239,19 +277,6 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
               </button>
             ))}
           </div>
-          
-          <button
-            onClick={buttonSubmit}
-            style={styles.submitButton}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#1d4ed8';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = '#2563eb';
-            }}
-          >
-            Submit
-          </button>
         </div>
 
         {/* Table Container */}
@@ -273,15 +298,15 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
                     Fees
                   </th>
                   <th style={{...styles.th, ...styles.thRegular}}>
-                    Annualised Return
+                    Return
                   </th>
                   <th style={{...styles.th, ...styles.thDelete}}>
-                    Delete
+                    Del
                   </th>
                 </tr>
               </thead>
               <tbody style={styles.tbody}>
-                {currentData.map((crypto, index) => (
+                {currentData && currentData.map((crypto, index) => (
                   <tr 
                     key={crypto.id} 
                     style={styles.tr}
@@ -363,14 +388,13 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
             </table>
           </div>
           
-          {/* Add Row Button - Full Width */}
+          {/* Add Row Button */}
           <button
             onClick={addRow}
             style={styles.addButton}
             onMouseEnter={(e) => e.target.style.backgroundColor = '#047857'}
             onMouseLeave={(e) => e.target.style.backgroundColor = '#059669'}
           >
-            
             <span>Add Row</span>
           </button>
         </div>

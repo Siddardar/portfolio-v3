@@ -1,16 +1,36 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
-
   const fmt2 = (n) =>
-  n.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+    n.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
   const [timeFrame, setTimeFrame] = useState('1Y');
-  
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  // Handle screen resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    if (typeof window !== 'undefined') {
+      // Initial check
+      handleResize();
+      
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('orientationchange', handleResize);
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('orientationchange', handleResize);
+      };
+    }
+  }, []);
+
   const timeFrames = {
     '3M': { months: 3, label: '3M', tickInterval: 0 },
     '6M': { months: 6, label: '6M', tickInterval: 1 },
@@ -20,13 +40,9 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
     '10Y': { months: 120, label: '10Y', tickInterval: 24 },
     '30Y': { months: 360, label: '30Y', tickInterval: 60 }
   };
-  
+
   // Filter data based on timeFrame and merge both datasets
   const chartData = useMemo(() => {
-    console.log('Processing data for timeframe:', timeFrame);
-    console.log('Strategy data length:', strategyData.length);
-    console.log('ETFs/Your Fund data length:', benchmarkData.length);
-    
     if (!strategyData.length && !benchmarkData.length) {
       return [];
     }
@@ -53,13 +69,8 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
     const cutoffDate = new Date(startDate);
     cutoffDate.setMonth(cutoffDate.getMonth() + currentTimeFrame.months);
     
-    console.log('Start date:', startDate);
-    console.log('Cutoff date (start + timeframe):', cutoffDate);
-    
     // Process and format the data arrays
     const processData = (data, datasetName) => {
-      console.log(`Processing ${datasetName} data:`, data.slice(0, 2)); // Log first 2 items
-      
       return data.map((item, index) => {
         // Handle both Date objects and date strings
         let date;
@@ -108,9 +119,6 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
     const processedStrategy = processData(strategyData, 'strategy');
     const processedBenchmark = processData(benchmarkData, 'benchmark');
     
-    console.log('Processed strategy length:', processedStrategy.length);
-    console.log('Processed benchmark length:', processedBenchmark.length);
-    
     // Filter data based on timeframe: show data from start date up to cutoff date
     const filteredStrategy = processedStrategy.filter(item => {
       const isWithinRange = item.dateObj >= startDate && item.dateObj <= cutoffDate;
@@ -121,14 +129,6 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
       const isWithinRange = item.dateObj >= startDate && item.dateObj <= cutoffDate;
       return isWithinRange;
     });
-    
-    console.log('Filtered strategy length:', filteredStrategy.length);
-    console.log('Filtered benchmark length:', filteredBenchmark.length);
-    
-    if (filteredStrategy.length > 0) {
-      console.log('First filtered strategy date:', filteredStrategy[0].dateObj);
-      console.log('Last filtered strategy date:', filteredStrategy[filteredStrategy.length - 1].dateObj);
-    }
     
     // Create a merged dataset with all unique dates
     const dateMap = new Map();
@@ -165,8 +165,6 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
     // Convert to array and sort by date using Date objects
     const result = Array.from(dateMap.values())
       .sort((a, b) => a.dateObj - b.dateObj);
-    
-    console.log('Final chart data length:', result.length);
     
     return result;
   }, [timeFrame, strategyData, benchmarkData]);
@@ -221,6 +219,7 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
   const benchmarkGain = benchmarkValue - totalInvested;
   const outperformance = strategyValue - benchmarkValue;
   
+  // Responsive styles
   const containerStyle = {
     color: 'white',
     margin: '48px 0 0 0',
@@ -230,9 +229,11 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
   
   const headerStyle = {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: isSmallScreen ? 'column' : 'row',
     gap: '16px',
-    marginBottom: '24px'
+    marginBottom: '24px',
+    justifyContent: isSmallScreen ? 'flex-start' : 'space-between',
+    alignItems: isSmallScreen ? 'flex-start' : 'flex-start'
   };
   
   const metricsStyle = {
@@ -291,24 +292,26 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
     gap: '8px'
   };
 
-  // Responsive design
-  const isSmallScreen = typeof window !== 'undefined' && window.innerWidth < 768;
-  
-  if (isSmallScreen) {
-    headerStyle.flexDirection = 'column';
-    headerStyle.alignItems = 'flex-start';
-    metricsStyle.flexDirection = 'column';
-    metricsStyle.gap = '8px';
-  } else {
-    headerStyle.flexDirection = 'row';
-    headerStyle.justifyContent = 'space-between';
-    headerStyle.alignItems = 'flex-start';
-  }
+  // Responsive chart margins
+  const chartMargins = {
+    top: 5,
+    right: isSmallScreen ? 5 : 30,
+    left: isSmallScreen ? 5 : 20,
+    bottom: 5
+  };
+
+  // Responsive tick intervals for mobile
+  const getTickInterval = () => {
+    if (isSmallScreen) {
+      return Math.max(timeFrames[timeFrame].tickInterval * 2, 1);
+    }
+    return timeFrames[timeFrame].tickInterval;
+  };
   
   return (
     <div style={containerStyle}>
       <div style={headerStyle}>
-        <div>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <div style={metricsStyle}>
             <div style={metricStyle}>
               <span style={{ color: '#9ca3af', fontSize: '12px' }}>Investment Linked Policy</span>
@@ -392,7 +395,7 @@ const ReturnsChart = ({ strategyData = [], benchmarkData = [] }) => {
               fontSize={12}
               tickLine={false}
               axisLine={false}
-              tickFormatter={(value) => `$${value.toLocaleString()}`}
+              tickFormatter={(value) => `${value.toLocaleString()}`}
             />
             <Tooltip content={<CustomTooltip />} />
             <Line
