@@ -162,6 +162,20 @@ const StyledTabPanel = styled.div`
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
   }
+
+  /* Override bold text styling to be white */
+  strong,
+  b {
+    color: #FAFAFA  !important;
+    
+  }
+
+  /* Also override any list item bold text */
+  ul li strong,
+  ul li b {
+    color: #F8F8F8  !important;
+    
+  }
 `;
 
 const Jobs = () => {
@@ -244,7 +258,7 @@ const Jobs = () => {
 
   return (
     <StyledJobsSection id="jobs" ref={revealContainer}>
-      <h2 className="numbered-heading">Where I’ve Worked</h2>
+      <h2 className="numbered-heading">Where I've Worked</h2>
 
       <div className="inner">
         <StyledTabList role="tablist" aria-label="Job tabs" onKeyDown={e => onKeyDown(e)}>
