@@ -98,6 +98,35 @@ export const calculateReturns = (start, monthlyPremium, rateOfReturn, feeRate, y
   return results;
 };
 
-export const validateInputs = (monthlyPremium, startDate, faFund, benchmarkFund) => {
+export const validateInputs = (monthlyPremium, startDate, chartDataFA, chartDataBenchmark) => {
+  
+  const errors = {};
 
-}
+  const premiumNum = parseFloat(monthlyPremium);
+  const isNumericString = /^\d+(\.\d+)?$/.test(monthlyPremium.trim());
+  if (!isNumericString || !Number.isFinite(premiumNum)) {
+    errors.monthlyPremium =
+      'Monthly premium must be a number.';
+  }
+
+  const dateRe = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRe.test(startDate) || isNaN(new Date(startDate).getTime())) {
+    errors.startDate = 'Start date format: YYYY-MM-DD';
+  }
+
+  const sumFA = chartDataFA.reduce((sum, item) => Number(sum) + Number(item.allocation), 0);
+  if (![100, 200].includes(sumFA)) {
+    errors.chartDataFA = `Sum of FA allocations must be 100 or 200 (got ${sumFA}).`;
+  }
+  
+
+  const sumBenchmark = chartDataBenchmark.reduce((sum, item) => Number(sum) + Number(item.allocation), 0);
+  if (sumBenchmark !== 100) {
+    errors.chartDataBenchmark = `Sum of benchmark allocations must be 100 (got ${sumBenchmark}).`;
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors
+  };
+};

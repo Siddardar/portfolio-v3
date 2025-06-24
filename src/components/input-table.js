@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 
 const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, buttonSubmit }) => {
   const [activeTab, setActiveTab] = useState('ILP Fund');
-
+  console.log(faData)
   const tabs = ['ILP Fund', 'ETFs/Your Fund'];
   const currentData = activeTab === 'ILP Fund' ? faData : yourFundData;
   const setCurrentData = activeTab === 'ILP Fund' ? setFaData : setYourFundData;
@@ -292,16 +292,16 @@ const FundsInputTable = ({ faData, setFaData, yourFundData, setYourFundData, but
                     Name
                   </th>
                   <th style={{...styles.th, ...styles.thRegular}}>
-                    Allocation
+                    Allocation (%)
                   </th>
                   <th style={{...styles.th, ...styles.thRegular}}>
-                    Fees
+                    Fees (% p.a)
                   </th>
                   <th style={{...styles.th, ...styles.thRegular}}>
                     Return
                   </th>
                   <th style={{...styles.th, ...styles.thDelete}}>
-                    Del
+                    Delete
                   </th>
                 </tr>
               </thead>
