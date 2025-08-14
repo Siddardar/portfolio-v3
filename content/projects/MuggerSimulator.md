@@ -1,7 +1,6 @@
 ---
 date: '2025-01-19'
 title: 'Mugger Simulator'
-cover: './gallery.jpg'
 github: 'https://github.com/curtischang2510/Mugger-Simulator'
 external: 'https://devpost.com/software/mugger-simulator?ref_content=user-portfolio&ref_feature=in_progress'
 tech:
