@@ -1,5 +1,5 @@
 ---
-date: '1'
+date: '2'
 title: 'SwipeStyle'
 cover: './swipestyle.png'
 github: 'https://github.com/wang-h-z/SwipeStyle'

@@ -1,5 +1,5 @@
 ---
-date: '2024-07-29'
+date: '2026-07-29'
 title: 'SwipeStyle API'
 github: 'https://github.com/Siddardar/styleswipe-api'
 external: 'https://github.com/Siddardar/styleswipe-api'
