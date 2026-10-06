@@ -43,3 +43,13 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
     },
   });
 };
+
+// Declare optional frontmatter fields so queries still build when no
+// markdown file uses them.
+exports.createSchemaCustomization = ({ actions }) => {
+  actions.createTypes(`
+    type MarkdownRemarkFrontmatter {
+      cta: String
+    }
+  `);
+};

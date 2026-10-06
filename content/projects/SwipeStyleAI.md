@@ -1,11 +1,11 @@
 ---
-date: '2026-07-31'
+date: '2024-07-31'
 title: 'SwipeStyle AI'
 github: 'https://github.com/Siddardar/swipestyle-ai'
 external: 'https://github.com/Siddardar/swipestyle-ai'
 tech:
   - Python
-  - Tensorflow Keras
+  - TensorFlow Keras
   - Flask
 company: ''
 showInProjects: true

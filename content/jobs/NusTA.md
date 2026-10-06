@@ -1,13 +1,13 @@
 ---
-date: '2023-08-01'
+date: '2024-08-01'
 title: 'Teaching Assistant'
 company: 'NUS'
 location: 'Singapore'
-range: 'August 2023 - August 2024'
+range: 'August 2024 - Present'
 url: ''
 ---
 
-- 1 out of 29 undergraduate Teaching Assistants for IS1108 Digital Ethics and Data Privacy
-- Prepared teaching materials and delivered weekly tutorial lessons to a class of 25
-- Provided feedback and marked assignments
-- Received a teacher rating of 4.6/5 and positive reviews from students. (Department average rating: 4.2/5)
+- Teaching Assistant for Intro to Computer Networks and Intro to AI and ML (AY2026/27)
+- 1 of 29 undergraduate Teaching Assistants for IS1108 Digital Ethics and Data Privacy (August 2024 - May 2025)
+- Prepared teaching materials and taught weekly tutorials to a class of 32
+- Received a teaching rating of 4.6/5 against a department average of 4.2/5

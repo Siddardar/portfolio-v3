@@ -1,5 +1,5 @@
 ---
-date: '2'
+date: '3'
 title: 'SwipeStyle'
 cover: './swipestyle.png'
 github: 'https://github.com/wang-h-z/SwipeStyle'
@@ -9,11 +9,11 @@ tech:
   - Python
   - Node.js
   - PostgreSQL
-  - Tensorflow
+  - TensorFlow
 ---
 
-A comprehensive full-stack mobile shopping application designed to revolutionize the way users discover fashion. The app allows users to seamlessly swipe through clothing items, leveraging an intuitive and engaging interface.
+A mobile shopping app, built in a team of two for NUS Orbital, where you swipe through clothing to discover fashion. I wrote most of the app and all of the API and recommendation model.
 
-Behind the scenes, it employs a custom collaborative filtering machine learning model to provide highly personalized clothing recommendations based on user preferences and behavior.
+The recommender is a collaborative-filtering model in TensorFlow Keras with user and item embeddings, served from Flask, that retrains to add new users without rebuilding from scratch. The project reached Apollo, the level awarded to the top 10% of Orbital projects.
 
 [Watch the product demo here!](https://drive.google.com/file/d/1Q-B4t2wUn-MAO58rwXnhkUT9gkZ2jB9n/view?usp=sharing)
